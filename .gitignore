@@ -1,0 +1,13 @@
+# Environment files and dependencies.
+**/.env
+**/.env.local
+**/.env.*.local
+**/node_modules/
+**/dist/
+**/.angular/
+
+# Editor and operating-system artifacts.
+.DS_Store
+.idea/
+.vscode/
+*.log
