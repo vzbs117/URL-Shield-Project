@@ -1,0 +1,49 @@
+<div class="login-wrapper">
+  <section class="login-hero">
+    <div class="login-copy">
+      <span class="eyebrow">Threat Intelligence Workspace</span>
+      <h1>Protege a tu equipo con una consola clara y rápida.</h1>
+      <p>
+        Centraliza revisiones de URLs, historial de análisis y administración de usuarios
+        desde una interfaz más pulida y lista para crecer.
+      </p>
+      <ul class="feature-list">
+        <li><i class="fas fa-shield-check"></i> Validación segura con VirusTotal</li>
+        <li><i class="fas fa-chart-line"></i> Historial y trazabilidad por usuario</li>
+        <li><i class="fas fa-user-lock"></i> Sesiones protegidas con roles</li>
+      </ul>
+    </div>
+
+    <div class="login-container">
+      <div class="card-head">
+        <span class="status-dot"></span>
+        <span>Acceso seguro</span>
+      </div>
+      <h2>Iniciar sesión</h2>
+      <p class="subtext">Ingresa con tu cuenta para analizar, revisar y administrar reportes.</p>
+      <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+      <form (ngSubmit)="login()">
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <div class="input-icon">
+            <i class="fas fa-at"></i>
+            <input id="email" [(ngModel)]="email" name="email" type="email" placeholder="equipo@empresa.com" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <div class="input-icon">
+            <i class="fas fa-key"></i>
+            <input id="password" [(ngModel)]="password" name="password" type="password" placeholder="Ingresa tu contraseña" required />
+          </div>
+        </div>
+
+        <button type="submit" [disabled]="isLoading">{{ isLoading ? 'Ingresando...' : 'Entrar al panel' }}</button>
+      </form>
+
+      <p class="redirect-text">¿No tienes una cuenta? <a routerLink="/register">Crear cuenta</a></p>
+    </div>
+  </section>
+</div>

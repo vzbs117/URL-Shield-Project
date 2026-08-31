@@ -1,0 +1,39 @@
+<section class="register-shell">
+  <div class="register-panel">
+    <div class="panel-copy">
+      <span class="eyebrow">Onboarding Seguro</span>
+      <h2>Crea tu espacio de monitoreo</h2>
+      <p class="subtext">Configura una cuenta y empieza a revisar enlaces con una experiencia más clara y profesional.</p>
+    </div>
+
+    <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <form (ngSubmit)="register()">
+      <div class="form-group">
+        <label for="nombre"><i class="fas fa-user"></i> Nombre</label>
+        <input id="nombre" [(ngModel)]="nombre" name="nombre" type="text" placeholder="Nombre completo" required />
+        <p class="field-error" *ngIf="showError && !nombre">El nombre es obligatorio.</p>
+      </div>
+
+      <div class="form-group">
+        <label for="email"><i class="fas fa-envelope"></i> Correo Electrónico</label>
+        <input id="email" [(ngModel)]="email" name="email" type="email" placeholder="equipo@empresa.com" required />
+        <p class="field-error" *ngIf="showError && !email">El correo es obligatorio.</p>
+      </div>
+
+      <div class="form-group">
+        <label for="password"><i class="fas fa-lock"></i> Contraseña</label>
+        <input id="password" [(ngModel)]="password" name="password" type="password" placeholder="Mínimo 8 caracteres" required />
+        <p class="field-error" *ngIf="showError && !password">La contraseña es obligatoria.</p>
+      </div>
+
+      <button type="submit" [disabled]="isLoading">
+        <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i> {{ isLoading ? 'Registrando...' : 'Crear cuenta' }}
+      </button>
+    </form>
+
+    <p class="redirect-text">
+      ¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a>.
+    </p>
+  </div>
+</section>

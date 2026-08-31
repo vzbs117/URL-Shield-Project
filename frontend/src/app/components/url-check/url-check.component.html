@@ -1,0 +1,91 @@
+<section class="page-container">
+  <div class="card">
+    <div class="scan-layout">
+      <div class="scan-copy">
+        <div class="card-header">
+          <div>
+            <span class="eyebrow">Escaneo inteligente</span>
+            <h2><i class="fas fa-shield-alt"></i> Analizador de URL</h2>
+            <p class="instructions">Ingresa la URL que deseas analizar para verificar su seguridad.</p>
+          </div>
+          <div class="signal-card">
+            <span>Motor</span>
+            <strong>VirusTotal</strong>
+          </div>
+        </div>
+
+        <div class="benefits-grid">
+          <div class="benefit-item">
+            <i class="fas fa-bolt"></i>
+            <span>Revisión rápida</span>
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-user-shield"></i>
+            <span>Historial protegido</span>
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-wave-square"></i>
+            <span>Resultado inmediato</span>
+          </div>
+        </div>
+
+        <div class="trust-panel">
+          <div class="trust-copy">
+            <span class="trust-label">Lectura del motor</span>
+            <p>
+              Contrastamos tu enlace con múltiples proveedores y te devolvemos una señal
+              más clara para evitar decisiones basadas en falsos positivos aislados.
+            </p>
+          </div>
+          <div class="trust-stats">
+            <div>
+              <strong>+90</strong>
+              <span>fuentes evaluadas</span>
+            </div>
+            <div>
+              <strong>1</strong>
+              <span>resultado consolidado</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-panel">
+        <div class="panel-top">
+          <span class="panel-kicker">Consulta manual</span>
+          <h3>Analiza un enlace ahora</h3>
+          <p>Pega una URL completa y te mostraremos el veredicto en cuanto el análisis termine.</p>
+        </div>
+
+        <form (ngSubmit)="analyzeURL()" aria-label="Formulario de análisis de URL">
+          <div class="form-group">
+            <label for="urlInput"><i class="fas fa-link"></i> URL</label>
+            <input
+              id="urlInput"
+              type="text"
+              [(ngModel)]="url"
+              name="urlInput"
+              placeholder="https://ejemplo.com"
+              required
+              autocomplete="off"
+            />
+          </div>
+          <button type="submit" [disabled]="isLoading">
+            <i *ngIf="!isLoading" class="fas fa-play-circle"></i>
+            {{ isLoading ? 'Analizando...' : 'Analizar URL' }}
+          </button>
+        </form>
+
+        <div class="loading-bar" *ngIf="isLoading" aria-label="Cargando...">
+          <div class="loading-bar-fill"></div>
+        </div>
+
+        <div class="message" *ngIf="message" aria-live="assertive">
+          <p [class.success]="isSuccess" [class.error]="!isSuccess">
+            <i [class]="isSuccess ? 'fas fa-check-circle' : 'fas fa-times-circle'"></i> {{ message }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
