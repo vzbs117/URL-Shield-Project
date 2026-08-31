@@ -1,0 +1,128 @@
+<section class="profile-shell">
+  <div class="profile-intro">
+    <div>
+      <span class="eyebrow">Tu espacio seguro</span>
+      <h1>Centro de control personal</h1>
+      <p>
+        Consulta tu actividad, protege tu cuenta y mantén visibilidad de los enlaces
+        que has revisado recientemente.
+      </p>
+    </div>
+    <button class="logout-button" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</button>
+  </div>
+
+  <div class="profile-container">
+    <div class="profile-card">
+      <h2 class="title"><i class="fas fa-user-circle"></i> Perfil de Usuario</h2>
+      <p class="subtext">Información esencial de tu cuenta y acceso.</p>
+
+      <div class="flash-message error-state" *ngIf="errorMessage">
+        <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+      </div>
+      <div class="flash-message success-state" *ngIf="successMessage">
+        <i class="fas fa-check-circle"></i> {{ successMessage }}
+      </div>
+
+      <div class="profile-metrics">
+        <div class="metric-card">
+          <span class="metric-label">Consultas</span>
+          <strong>{{ consultas.length }}</strong>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Rol</span>
+          <strong>{{ user?.role | titlecase }}</strong>
+        </div>
+      </div>
+
+      <div class="profile-info">
+        <p><i class="fas fa-user"></i> <strong>Nombre:</strong> {{ user?.nombre || 'Sin definir' }}</p>
+        <p><i class="fas fa-envelope"></i> <strong>Email:</strong> {{ user?.email || 'Sin definir' }}</p>
+        <p><i class="fas fa-user-tag"></i> <strong>Rol:</strong> {{ user?.role | titlecase }}</p>
+      </div>
+
+      <hr class="section-divider" />
+
+      <div class="password-change">
+        <h3><i class="fas fa-lock"></i> Refuerza tu acceso</h3>
+        <p class="subtext compact">
+          Actualiza tu contraseña cuando quieras para mantener tu cuenta protegida.
+        </p>
+        <form (ngSubmit)="changePassword()">
+          <div class="form-group">
+            <label for="newPassword"><i class="fas fa-key"></i> Nueva Contraseña</label>
+            <input
+              id="newPassword"
+              [(ngModel)]="newPassword"
+              name="newPassword"
+              type="password"
+              placeholder="Ingresa tu nueva contraseña"
+              required
+            />
+          </div>
+          <button type="submit" [disabled]="isSavingPassword">
+            <i class="fas fa-save"></i> {{ isSavingPassword ? 'Guardando...' : 'Actualizar Contraseña' }}
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="consultas-card">
+      <div class="section-header">
+        <div>
+          <h2 class="title"><i class="fas fa-search"></i> Tus Consultas</h2>
+          <p class="subtext compact">Historial reciente de enlaces analizados.</p>
+        </div>
+        <div class="section-pill">{{ consultas.length }} registros</div>
+      </div>
+
+      <div class="filters">
+        <input type="date" [(ngModel)]="filterDate" placeholder="Filtrar por fecha" />
+        <button (click)="filterConsultasByDate()"><i class="fas fa-filter"></i> Filtrar</button>
+      </div>
+
+      <div *ngIf="!isLoadingConsultas && paginatedConsultas.length > 0; else noConsultas">
+        <table class="consulta-table">
+          <thead>
+            <tr>
+              <th>URL</th>
+              <th>Estado</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let consulta of paginatedConsultas">
+              <td class="url-cell">{{ consulta.url }}</td>
+              <td>
+                <span [class]="consulta.status === 'seguro' ? 'status-badge safe' : 'status-badge danger'">
+                  {{ consulta.status }}
+                </span>
+              </td>
+              <td>{{ consulta.createdAt | date:'mediumDate' }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="pagination">
+          <button (click)="previousPage()" [disabled]="currentPage === 1"><i class="fas fa-arrow-left"></i> Anterior</button>
+          <span>Página {{ currentPage }} de {{ totalPages }}</span>
+          <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <div *ngIf="isLoadingConsultas" class="loading-message">
+        <i class="fas fa-spinner fa-spin"></i> Cargando consultas...
+      </div>
+
+      <ng-template #noConsultas>
+        <div *ngIf="isLoadingConsultas" class="loading-message">
+          <i class="fas fa-spinner fa-spin"></i> Cargando consultas...
+        </div>
+        <div class="empty-state">
+          <i class="fas fa-shield-alt"></i>
+          <h3>Aún no hay actividad</h3>
+          <p>Tus análisis aparecerán aquí en cuanto revises tu primera URL.</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,113 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  width: min(100% - 24px, calc(var(--content-width) + 48px));
+  margin: 18px auto 0;
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--stroke);
+  background: rgba(7, 17, 31, 0.72);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-lg);
+  border-radius: 18px;
+}
+
+.navbar-brand a {
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-brand i {
+  color: var(--brand);
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 1.25rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.navbar-links.active {
+  display: block;
+}
+
+.navbar-links li {
+  display: inline-block;
+}
+
+.navbar-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: color 0.24s ease, background-color 0.24s ease, transform 0.24s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.navbar-links a i {
+  font-size: 0.95rem;
+}
+
+.navbar-links a:hover {
+  color: var(--text);
+  background: rgba(121, 168, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    width: calc(100% - 20px);
+    margin-top: 12px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .navbar-links {
+    flex-direction: column;
+    display: none;
+  }
+
+  .navbar-links.active {
+    display: flex;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 12px;
+    width: min(260px, calc(100vw - 36px));
+    background: rgba(7, 17, 31, 0.95);
+    border: 1px solid var(--stroke);
+    padding: 10px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .navbar-links li {
+    margin: 4px 0;
+  }
+}

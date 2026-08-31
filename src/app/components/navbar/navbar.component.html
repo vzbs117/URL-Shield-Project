@@ -1,0 +1,23 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a routerLink="/profile"><i class="fas fa-shield-alt"></i> URL Shield</a>
+  </div>
+  
+  <div class="menu-toggle" (click)="toggleMenu()">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <ul class="navbar-links" [class.active]="menuOpen" *ngIf="isLoggedIn; else guestLinks">
+    <li><a routerLink="/profile"><i class="fas fa-user"></i> Perfil</a></li>
+    <li><a routerLink="/url-check"><i class="fas fa-link"></i> Analizar URL</a></li>
+    <li *ngIf="isAdmin"><a routerLink="/admin-dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+    <li><a role="button" tabindex="0" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+  </ul>
+
+  <ng-template #guestLinks>
+    <ul class="navbar-links" [class.active]="menuOpen">
+      <li><a routerLink="/login"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a></li>
+      <li><a routerLink="/register"><i class="fas fa-user-plus"></i> Regístrate</a></li>
+    </ul>
+  </ng-template>
+</nav>
