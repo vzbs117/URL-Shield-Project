@@ -53,4 +53,5 @@ El frontend se sirve por defecto en `http://127.0.0.1:4200` y enruta `/api` haci
 
 ## Seguridad
 
-No subas archivos `.env.local`, claves de VirusTotal, secretos JWT ni credenciales de administrador. El repositorio incluye plantillas y reglas de exclusión para mantener esos datos fuera de Git.
+
+
